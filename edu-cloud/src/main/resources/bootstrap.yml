@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: service-cloud
+  cloud:
+    nacos:
+      config:
+        server-addr: 110.42.169.135:8848
+        file-extension: yaml
+        group: DEFAULT_GROUP

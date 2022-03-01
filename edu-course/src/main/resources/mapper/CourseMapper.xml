@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nwu.course.mapper.CourseMapper">
+
+    <select id="getAllChapters" parameterType="Long" resultType="com.nwu.course.dto.CourseDetail">
+        select cp.id as chapterId,
+               cp.name as chapterName,
+               cp.sort as cpSort,
+               s.id as sectionId,
+               s.name as sectionName,
+               s.video_id as videoId,
+               s.sort as sSort
+        from course c left join chapter cp on c.id=cp.course_id left join section s on cp.id=s.chapter_id
+        where c.id=#{id} and cp.id is not null
+        order by cp.sort,s.sort
+    </select>
+
+    <select id="getCourseConcreteInfo" parameterType="Long" resultType="com.nwu.course.vo.CourseVo">
+        select c.id as id,
+               c.name as name,
+               c.cover as cover,
+               ctg.name as category,
+               t.name as teacher,
+               d.name as department
+        from course c inner join teacher t on c.teacher_id=t.id
+            inner join department d on t.dept_id=d.id
+            inner join course_category ctg on c.course_ctg_id=ctg.id
+        where c.id=#{id}
+    </select>
+
+    <select id="frontGetCourseInfo" parameterType="Long" resultType="com.nwu.course.vo.FrontOneCourseVo">
+        select
+           c.id as id,
+           c.name as name,
+           c.lesson_num as lessonNum,
+           c.cover as cover,
+           c.study_num as studyNum,
+           c.view_num as viewNum,
+           c.description as description,
+           c.teacher_id as teacherId,
+           t.name as teacherName,
+           t.description as intro,
+           t.avatar as avatar,
+           ct.id as categoryId,
+           ct.name as categoryName,
+           dp.name as deptName
+        from course as c
+            left join teacher as t on c.teacher_id=t.id
+            left join course_category as ct on c.course_ctg_id=ct.id
+            left join department as dp on c.dept_id=dp.id
+        where c.id=#{id}
+    </select>
+
+    <select id="getNumByDate" parameterType="String" resultType="Integer">
+        SELECT count(1)
+        FROM course
+        WHERE date_format(gmt_create,'%Y-%m-%d')=#{myDate}
+    </select>
+
+</mapper>
