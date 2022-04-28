@@ -41,4 +41,6 @@ public interface CourseService extends IService<Course> {
     List<Course> getCoursesByIds(String ids);
     //根据课程ID集合获取课程并封装
     List<FrontCourseVo> getCourseVoByIds(List<Long> ids);
+
+    void saveKeyWords(String keyWord);
 }

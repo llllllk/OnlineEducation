@@ -53,6 +53,7 @@ public class CourseController {
         Integer deptId = baseClient.getDeptIdByTeacherId(courseInfo.getTeacherId());
         courseInfo.setDeptId(deptId);
         boolean save = courseService.save(courseInfo);
+        courseService.saveKeyWords(courseInfo.getKeyWord());
         if (save) return CommonResult.ok().data("courseId",courseInfo.getId());
         else return CommonResult.error().message("添加失败");
     }

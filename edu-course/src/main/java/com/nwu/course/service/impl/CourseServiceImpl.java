@@ -19,7 +19,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
@@ -181,6 +184,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             courseVoList.add(vo);
         }
         return courseVoList;
+    }
+
+    @Override
+    public void saveKeyWords(String keyWord) {
+        try {
+            File file = ResourceUtils.getFile("classpath:a.txt");
+            System.out.println(file.getName());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 //    private FrontOneCourseVo transform(Course course, Teacher teacher, CourseCategory category) {
