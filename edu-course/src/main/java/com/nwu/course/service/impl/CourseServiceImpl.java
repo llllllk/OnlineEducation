@@ -21,8 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -188,12 +187,29 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public void saveKeyWords(String keyWord) {
+        if (keyWord==null || "".equals(keyWord)) return;
+        BufferedWriter writer = null;
         try {
             File file = ResourceUtils.getFile("classpath:a.txt");
-            System.out.println(file.getName());
-        } catch (FileNotFoundException e) {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true)));
+            for (String s : keyWord.split(":")) {
+                writer.newLine();
+                writer.write(s);
+            }
+        } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public static void main(String[] args) {
+        CourseService courseService=new CourseServiceImpl();
+        courseService.saveKeyWords("dfgd:qwe:po");
     }
 
 //    private FrontOneCourseVo transform(Course course, Teacher teacher, CourseCategory category) {
