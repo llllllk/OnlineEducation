@@ -16,8 +16,7 @@ spring:
       max-request-size: 1024MB
   redis:
     port: 6379
-    password: sad213ewer.2?sdqw#
-    #             sad213ewer.2?sdqw#
+    password: xxx
     host: 110.42.169.135
     lettuce:
       pool:
@@ -32,11 +31,11 @@ aliyun:
   oss:
     file:
       endpoint: oss-cn-beijing.aliyuncs.com
-      keyid: LTAI4GAghQiZ9o7SP2vpz7rV
-      keysecret: xB0yOhNMPeefQ8GEal3e8nYQ2M27cL
+      keyid: xxx
+      keysecret: xxx
       bucketname: nwu-edu
   msg:
     sign-name: 我的在线教育平台
-    template-code: SMS_204116297
+    template-code: xxx
 
 ```
